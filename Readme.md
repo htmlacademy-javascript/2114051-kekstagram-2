@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Слава Кочнев](https://up.htmlacademy.ru/javascript-individual/2/user/2114051).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Хапов](https://htmlacademy.ru/profile/id118459).
 
 ---
 
