@@ -1,9 +1,9 @@
 const сheckLine = (string, maxLong) => string.length <= maxLong;
 
-сheckLine();
+сheckLine('проверяемая строка', 20);
 
 
-const palindrome = (string) => {
+const сheckPalindrome = (string) => {
   const newString = string.replaceAll(' ', '').toUpperCase();
 
   let blankString = '';
@@ -13,5 +13,19 @@ const palindrome = (string) => {
   } return blankString === newString;
 };
 
-palindrome();
+сheckPalindrome('ДовОд');
 
+
+const checkNumberFromString = (string) => {
+  let num = '';
+  const newString = string.toString().replaceAll(' ', '');
+
+  for (let i = 0; i < newString.length; i++) {
+    if (!isNaN(newString[i])) {
+      num += newString[i];
+    }
+  }
+  return parseInt(num, 10);
+};
+
+checkNumberFromString(-15);
