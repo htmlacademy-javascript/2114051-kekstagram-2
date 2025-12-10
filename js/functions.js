@@ -29,3 +29,5 @@ const checkNumberFromString = (string) => {
 };
 
 checkNumberFromString(-15);
+
+window.console.log('test');
