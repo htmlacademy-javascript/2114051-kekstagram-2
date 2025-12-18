@@ -6,7 +6,7 @@ import {
 } from './data.js';
 
 // СОЗДАНИЕ ОДНОГО КОММЕНТАРИЯ
-const creatureComments = function(commentId) {
+const createComments = function(commentId) {
   const avatarNumber = Math.floor(Math.random() * (AVATAR_MAX - AVATAR_MIN + 1)) + AVATAR_MIN;
 
   const NAME = NAMES[Math.floor(Math.random() * NAMES.length)];
@@ -27,4 +27,4 @@ const creatureComments = function(commentId) {
   };
 };
 
-export {creatureComments};
+export {createComments};

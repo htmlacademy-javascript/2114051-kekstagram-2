@@ -1,5 +1,7 @@
-import { creaturePhotoDescriptions } from './creaturePhotoDescriptions.js';
+import { createPhotoDescriptions } from './createPhotoDescriptions.js';
 
-const photoDescriptions = creaturePhotoDescriptions();
+const photoDescriptions = createPhotoDescriptions();
 
-export { photoDescriptions };
+photoDescriptions();
+
+
