@@ -4,6 +4,7 @@ const COMMENTS_MAX = 30;
 const AVATAR_MIN = 1;
 const AVATAR_MAX = 6;
 const NAMES = ['Петя', 'Вася', 'Гриша', 'Юра', 'Слава', 'Миша', 'Марик', 'Антон', 'Дима'];
+const COMMENTS_PER_CLICK = 5;
 
 
 const DESCRIPTIONS = [
@@ -54,6 +55,7 @@ export {
   NAMES,
   DESCRIPTIONS,
   COMMENTS_TEXT,
-  isEscapeKey
+  isEscapeKey,
+  COMMENTS_PER_CLICK
 };
 
