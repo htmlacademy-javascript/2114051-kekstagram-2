@@ -43,6 +43,8 @@ const COMMENTS_TEXT = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 export {
   LIKES_MIN,
   LIKES_MAX,
@@ -51,5 +53,7 @@ export {
   AVATAR_MAX,
   NAMES,
   DESCRIPTIONS,
-  COMMENTS_TEXT
+  COMMENTS_TEXT,
+  isEscapeKey
 };
+
