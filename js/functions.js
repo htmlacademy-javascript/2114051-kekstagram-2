@@ -51,6 +51,6 @@ const scheduleMeeting = (startWork, endWork, startMeeting, durationMeeting) => {
   return startMeetingMinutes >= startWorkMinutes && endMeetingMinutes <= endWorkMinutes;
 };
 
-scheduleMeeting();
+scheduleMeeting('09:00', '17:00', '14:00', 60);
 
 
