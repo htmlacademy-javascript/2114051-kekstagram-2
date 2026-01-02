@@ -1,4 +1,6 @@
 import { isEscapeKey } from './data.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 const fileInput = document.querySelector('.img-upload__input');
 const showPicture = document.querySelector('.img-upload__overlay');
@@ -73,6 +75,8 @@ const closeForm = () => {
   fileInput.value = '';
   hashtagInput.value = '';
   commentInput.value = '';
+  resetScale();
+  resetEffects();
 };
 
 const stopEscPropagation = (evt) => {
