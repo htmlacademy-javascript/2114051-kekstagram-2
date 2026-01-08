@@ -1,6 +1,8 @@
 import { isEscapeKey } from './data.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
+import { sendData } from './api.js';
+import { showSuccess, showError } from './messages.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAG_MAX_LENGTH = 5;
@@ -91,7 +93,6 @@ const getHashtagError = (value) => {
       return 'Хэштег не может состоять только из #';
     }
 
-
     if (!regexp.test(tag)) {
       return 'Хэштег должен содержать только буквы и цифры после #';
     }
@@ -106,7 +107,6 @@ const getHashtagError = (value) => {
 
   return '';
 };
-
 
 pristine.addValidator(
   hashtagInput,
@@ -124,12 +124,6 @@ const closeForm = () => {
   showPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeydown);
-  fileInput.value = '';
-  hashtagInput.value = '';
-  commentInput.value = '';
-  pristine.reset();
-  resetScale();
-  resetEffects();
 };
 
 const stopEscPropagation = (evt) => {
@@ -145,25 +139,54 @@ function onEscKeydown(evt) {
   }
 }
 
+const resetForm = () => {
+  fileInput.value = '';
+  hashtagInput.value = '';
+  commentInput.value = '';
+  pristine.reset();
+  resetScale();
+  resetEffects();
+};
+
 const initForm = () => {
   hashtagInput.addEventListener('keydown', stopEscPropagation);
   commentInput.addEventListener('keydown', stopEscPropagation);
 
   buttonClose.addEventListener('click', () => {
     closeForm();
+    resetForm();
   });
 
   fileInput.addEventListener('change', () => {
     openForm();
   });
 
-  form.addEventListener('submit', (evt) => {
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
 
     if (isValid) {
-      form.submit();
+      const submitButton = document.querySelector('.img-upload__submit');
+      submitButton.disabled = true;
+      submitButton.textContent = 'Отправка...';
+
+      const formData = new FormData(form);
+
+      try {
+        await sendData(formData);
+
+        showSuccess();
+        closeForm();
+        resetForm();
+
+      } catch (error) {
+        showError();
+      } finally {
+
+        submitButton.disabled = false;
+        submitButton.textContent = 'Опубликовать';
+      }
     }
   });
 };
