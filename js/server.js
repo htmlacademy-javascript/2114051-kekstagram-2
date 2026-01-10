@@ -1,9 +1,9 @@
 import { getData } from './api.js';
 import { renderPhotos } from './render.js';
 import { initBigPicture } from './bigPicture.js';
+import { initFilters } from './filters.js';
 
-
-function showLoadError() {
+const showLoadError = () => {
   const template = document.querySelector('#data-error');
   const error = template.content.cloneNode(true);
   document.body.appendChild(error);
@@ -14,18 +14,15 @@ function showLoadError() {
       errorElement.remove();
     }
   }, 5000);
-}
+};
 
-async function loadAndShowPhotos() {
+const loadAndShowPhotos = async () => {
   try {
-
     const photos = await getData();
 
     renderPhotos(photos);
     initBigPicture(photos);
-
-    const filters = document.querySelector('.img-filters');
-    filters.classList.remove('img-filters--inactive');
+    initFilters(photos);
 
     return photos;
 
@@ -33,6 +30,6 @@ async function loadAndShowPhotos() {
     showLoadError();
     return [];
   }
-}
+};
 
 export { loadAndShowPhotos };

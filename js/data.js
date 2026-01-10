@@ -6,7 +6,6 @@ const AVATAR_MAX = 6;
 const NAMES = ['Петя', 'Вася', 'Гриша', 'Юра', 'Слава', 'Миша', 'Марик', 'Антон', 'Дима'];
 const COMMENTS_PER_CLICK = 5;
 
-
 const DESCRIPTIONS = [
   'Мокры дождь',
   'Прекрасная сказка',
@@ -46,6 +45,28 @@ const COMMENTS_TEXT = [
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+const throttle = (callback, delayBetweenFrames) => {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+};
+
 export {
   LIKES_MIN,
   LIKES_MAX,
@@ -56,6 +77,7 @@ export {
   DESCRIPTIONS,
   COMMENTS_TEXT,
   isEscapeKey,
-  COMMENTS_PER_CLICK
+  COMMENTS_PER_CLICK,
+  debounce,
+  throttle
 };
-
