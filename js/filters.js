@@ -1,14 +1,19 @@
 import { renderPhotos } from './render.js';
 import { initBigPicture } from './bigPicture.js';
-import { debounce } from './data.js';
+import { debounce } from './utils.js';
+
+const DELAY = 500;
+const PHOTOS_COUNT = 10;
 
 let allPhotos = [];
 let currentPhotos = [];
 
+const picturesContainer = document.querySelector('.pictures');
+
 const getRandomPhotos = () => {
   const photosCopy = [...allPhotos];
   const shuffled = photosCopy.sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 10);
+  return shuffled.slice(0, PHOTOS_COUNT);
 };
 
 const getMostDiscussedPhotos = () => {
@@ -17,8 +22,14 @@ const getMostDiscussedPhotos = () => {
 };
 
 const applyFilter = (filterType) => {
-  const container = document.querySelector('.pictures');
-  container.innerHTML = '';
+  if (!picturesContainer) {
+    return;
+  }
+
+  const photoItems = picturesContainer.querySelectorAll('.picture');
+  photoItems.forEach((photo) => {
+    photo.remove();
+  });
 
   if (filterType === 'random') {
     currentPhotos = getRandomPhotos();
@@ -37,6 +48,7 @@ const initFilters = (photos) => {
   currentPhotos = [...photos];
 
   const filters = document.querySelector('.img-filters');
+
   if (!filters) {
     return;
   }
@@ -51,9 +63,12 @@ const initFilters = (photos) => {
     });
 
     button.classList.add('img-filters__button--active');
-  }, 500);
+  }, DELAY);
 
   const handleButtonClick = (filterType, button) => {
+    if (button.classList.contains('img-filters__button--active')) {
+      return;
+    }
     debouncedFilter(filterType, button);
   };
 

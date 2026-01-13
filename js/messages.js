@@ -1,6 +1,6 @@
-import { isEscapeKey } from './data.js';
+import { isEscapeKey } from './utils.js';
 
-function showSuccess() {
+const showSuccess = () => {
   const template = document.querySelector('#success');
   const success = template.content.cloneNode(true);
   document.body.appendChild(success);
@@ -8,30 +8,31 @@ function showSuccess() {
   const message = document.querySelector('.success');
   const button = message.querySelector('.success__button');
 
-  function closeMessage() {
+  const closeMessage = () => {
     message.remove();
-    document.removeEventListener('keydown', onEsc);
-    document.removeEventListener('click', onClick);
-  }
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onDocumentClick);
+  };
 
-  function onEsc(evt) {
+  function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
+      evt.stopPropagation();
       closeMessage();
     }
   }
 
-  function onClick(evt) {
+  function onDocumentClick(evt) {
     if (evt.target === message) {
       closeMessage();
     }
   }
 
   button.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEsc);
-  document.addEventListener('click', onClick);
-}
+  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onDocumentClick);
+};
 
-function showError() {
+const showError = () => {
   const template = document.querySelector('#error');
   const error = template.content.cloneNode(true);
   document.body.appendChild(error);
@@ -39,27 +40,28 @@ function showError() {
   const message = document.querySelector('.error');
   const button = message.querySelector('.error__button');
 
-  function closeMessage() {
+  const closeMessage = () => {
     message.remove();
-    document.removeEventListener('keydown', onEsc);
-    document.removeEventListener('click', onClick);
-  }
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onDocumentClick);
+  };
 
-  function onEsc(evt) {
+  function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
+      evt.stopPropagation();
       closeMessage();
     }
   }
 
-  function onClick(evt) {
+  function onDocumentClick(evt) {
     if (evt.target === message) {
       closeMessage();
     }
   }
 
   button.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEsc);
-  document.addEventListener('click', onClick);
-}
+  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onDocumentClick);
+};
 
 export { showSuccess, showError };

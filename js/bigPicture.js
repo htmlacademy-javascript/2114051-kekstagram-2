@@ -1,4 +1,7 @@
-import { isEscapeKey, COMMENTS_PER_CLICK } from './data.js';
+import { isEscapeKey } from './utils.js';
+
+const AVATAR_SIZE = 35;
+const COMMENTS_PER_CLICK = 5;
 
 const bigPicture = document.querySelector('.big-picture');
 
@@ -9,16 +12,18 @@ const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
+  document.cleanEventListener('keydown', onDocumentKeydown);
+
   currentComments = [];
   shownComments = 0;
 };
 
-const onEscKeydown = (evt) => {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
-};
+}
 
 const showMoreComments = () => {
   const commentsContainer = bigPicture.querySelector('.social__comments');
@@ -27,7 +32,6 @@ const showMoreComments = () => {
     COMMENTS_PER_CLICK,
     currentComments.length - shownComments
   );
-
 
   for (let i = shownComments; i < shownComments + commentsToShow; i++) {
     const comment = currentComments[i];
@@ -39,8 +43,8 @@ const showMoreComments = () => {
     avatar.classList.add('social__picture');
     avatar.src = comment.avatar;
     avatar.alt = comment.name;
-    avatar.width = 35;
-    avatar.height = 35;
+    avatar.width = AVATAR_SIZE;
+    avatar.height = AVATAR_SIZE;
 
     const text = document.createElement('p');
     text.classList.add('social__text');
@@ -65,7 +69,6 @@ const showMoreComments = () => {
 };
 
 const openBigPicture = (photo) => {
-
   currentComments = photo.comments;
   shownComments = 0;
 
@@ -93,7 +96,7 @@ const openBigPicture = (photo) => {
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const initBigPicture = (allPhotos) => {
