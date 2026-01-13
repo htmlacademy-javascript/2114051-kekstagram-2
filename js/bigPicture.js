@@ -4,25 +4,26 @@ const bigPicture = document.querySelector('.big-picture');
 
 let currentComments = [];
 let shownComments = 0;
+const AVATAR_SIZE = 35;
 
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 
   currentComments = [];
   shownComments = 0;
 }
 
-function onEscKeydown(evt){
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 }
 
-const showMoreComments = () => {
+function showMoreComments() {
   const commentsContainer = bigPicture.querySelector('.social__comments');
 
   const commentsToShow = Math.min(
@@ -40,8 +41,8 @@ const showMoreComments = () => {
     avatar.classList.add('social__picture');
     avatar.src = comment.avatar;
     avatar.alt = comment.name;
-    avatar.width = 35;
-    avatar.height = 35;
+    avatar.width = AVATAR_SIZE;
+    avatar.height = AVATAR_SIZE;
 
     const text = document.createElement('p');
     text.classList.add('social__text');
@@ -63,9 +64,9 @@ const showMoreComments = () => {
   if (shownComments >= currentComments.length) {
     loadMoreButton.classList.add('hidden');
   }
-};
+}
 
-const openBigPicture = (photo) => {
+function openBigPicture(photo) {
   currentComments = photo.comments;
   shownComments = 0;
 
@@ -93,10 +94,10 @@ const openBigPicture = (photo) => {
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeydown);
-};
+  document.addEventListener('keydown', onDocumentKeydown);
+}
 
-const initBigPicture = (allPhotos) => {
+function initBigPicture(allPhotos) {
   const miniPictures = document.querySelectorAll('.picture');
   const closeButton = document.querySelector('.big-picture__cancel');
 
@@ -113,6 +114,6 @@ const initBigPicture = (allPhotos) => {
   closeButton.addEventListener('click', () => {
     closeBigPicture();
   });
-};
+}
 
 export { initBigPicture };

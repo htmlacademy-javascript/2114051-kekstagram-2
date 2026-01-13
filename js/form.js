@@ -113,24 +113,24 @@ pristine.addValidator(
 );
 
 const openForm = () => {
-  hashtagInput.value = '';
-  commentInput.value = '';
-  pristine.reset();
   showPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeForm = () => {
   showPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function onEscKeydown(evt) {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeForm();
+    const hasOpenMessage = document.querySelector('.success') || document.querySelector('.error');
+    if (!hasOpenMessage) {
+      evt.preventDefault();
+      closeForm();
+    }
   }
 }
 

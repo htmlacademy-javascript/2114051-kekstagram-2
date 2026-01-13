@@ -5,26 +5,26 @@ import { debounce } from './data.js';
 let allPhotos = [];
 let currentPhotos = [];
 
-const getRandomPhotos = () => {
+function getRandomPhotos() {
   const photosCopy = [...allPhotos];
   const shuffled = photosCopy.sort(() => Math.random() - 0.5);
   return shuffled.slice(0, 10);
-};
+}
 
-const getMostDiscussedPhotos = () => {
+function getMostDiscussedPhotos() {
   const photosCopy = [...allPhotos];
   return photosCopy.sort((a, b) => b.comments.length - a.comments.length);
-};
+}
 
-const applyFilter = (filterType) => {
+function applyFilter(filterType) {
   const picturesContainer = document.querySelector('.pictures');
 
   if (!picturesContainer) {
     return;
   }
 
-  const photoElements = picturesContainer.querySelectorAll('.picture');
-  photoElements.forEach((photo) => {
+  const photoItems = picturesContainer.querySelectorAll('.picture');
+  photoItems.forEach((photo) => {
     photo.remove();
   });
 
@@ -38,9 +38,9 @@ const applyFilter = (filterType) => {
 
   renderPhotos(currentPhotos);
   initBigPicture(currentPhotos);
-};
+}
 
-const initFilters = (photos) => {
+function initFilters(photos) {
   allPhotos = photos;
   currentPhotos = [...photos];
 
@@ -63,6 +63,9 @@ const initFilters = (photos) => {
   }, 500);
 
   const handleButtonClick = (filterType, button) => {
+    if (button.classList.contains('img-filters__button--active')) {
+      return;
+    }
     debouncedFilter(filterType, button);
   };
 
@@ -90,6 +93,6 @@ const initFilters = (photos) => {
       handleButtonClick('discussed', discussedBtn);
     });
   }
-};
+}
 
 export { initFilters };

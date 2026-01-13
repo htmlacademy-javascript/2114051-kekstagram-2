@@ -10,26 +10,26 @@ function showSuccess() {
 
   function closeMessage() {
     message.remove();
-    document.removeEventListener('keydown', onEsc);
-    document.removeEventListener('click', onClick);
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onOutsideClick);
   }
 
-  function onEsc(evt) {
+  function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
       evt.stopPropagation();
       closeMessage();
     }
   }
 
-  function onClick(evt) {
+  function onOutsideClick(evt) {
     if (evt.target === message) {
       closeMessage();
     }
   }
 
   button.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEsc);
-  document.addEventListener('click', onClick);
+  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onOutsideClick);
 }
 
 function showError() {
@@ -42,25 +42,26 @@ function showError() {
 
   function closeMessage() {
     message.remove();
-    document.removeEventListener('keydown', onEsc);
-    document.removeEventListener('click', onClick);
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onOutsideClick);
   }
 
-  function onEsc(evt) {
+  function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
+      evt.stopPropagation();
       closeMessage();
     }
   }
 
-  function onClick(evt) {
+  function onOutsideClick(evt) {
     if (evt.target === message) {
       closeMessage();
     }
   }
 
   button.addEventListener('click', closeMessage);
-  document.addEventListener('keydown', onEsc);
-  document.addEventListener('click', onClick);
+  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onOutsideClick);
 }
 
 export { showSuccess, showError };
