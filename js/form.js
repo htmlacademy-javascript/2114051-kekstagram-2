@@ -6,6 +6,7 @@ import { showSuccess, showError } from './messages.js';
 
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAG_MAX_LENGTH = 5;
+const REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const fileInput = document.querySelector('.img-upload__input');
 const showPicture = document.querySelector('.img-upload__overlay');
@@ -30,8 +31,6 @@ pristine.addValidator(
   `Длина комментария не может составлять больше ${COMMENT_MAX_LENGTH} символов`
 );
 
-const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
-
 const validateHashtag = (value) => {
   const trimmedValue = value.trim();
   if (trimmedValue === '') {
@@ -52,7 +51,7 @@ const validateHashtag = (value) => {
       return false;
     }
 
-    if (!regexp.test(tag)) {
+    if (!REGEXP.test(tag)) {
       return false;
     }
   }
@@ -91,7 +90,7 @@ const getHashtagError = (value) => {
       return 'Хэштег слишком короткий';
     }
 
-    if (!regexp.test(tag)) {
+    if (!REGEXP.test(tag)) {
       return 'Хэштег должен содержать только буквы и цифры';
     }
   }
