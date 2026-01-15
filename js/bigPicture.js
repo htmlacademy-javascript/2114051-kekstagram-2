@@ -12,7 +12,7 @@ const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  document.cleanEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 
   currentComments = [];
   shownComments = 0;
@@ -25,7 +25,7 @@ function onDocumentKeydown(evt) {
   }
 }
 
-const showMoreComments = () => {
+const onLoadMoreButtonClick = () => {
   const commentsContainer = bigPicture.querySelector('.social__comments');
 
   const commentsToShow = Math.min(
@@ -68,7 +68,7 @@ const showMoreComments = () => {
   }
 };
 
-const openBigPicture = (photo) => {
+const onMiniPictureClick = (photo) => {
   currentComments = photo.comments;
   shownComments = 0;
 
@@ -90,9 +90,9 @@ const openBigPicture = (photo) => {
   commentCounter.classList.remove('hidden');
   loadMoreButton.classList.remove('hidden');
 
-  showMoreComments();
+  onLoadMoreButtonClick();
 
-  loadMoreButton.addEventListener('click', showMoreComments);
+  loadMoreButton.addEventListener('click', onLoadMoreButtonClick);
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -109,7 +109,7 @@ const initBigPicture = (allPhotos) => {
     miniPicture.addEventListener('click', (evt) => {
       evt.preventDefault();
       const photo = allPhotos[i];
-      openBigPicture(photo);
+      onMiniPictureClick(photo);
     });
   }
 
