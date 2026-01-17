@@ -72,14 +72,14 @@ const initFilters = (photos) => {
     debouncedFilter(filterType, button);
   };
 
-  const defaultBtn = document.querySelector('#filter-default');
+  const onDefaultButtonClick = document.querySelector('#filter-default');
   const randomBtn = document.querySelector('#filter-random');
   const discussedBtn = document.querySelector('#filter-discussed');
 
-  if (defaultBtn) {
-    defaultBtn.addEventListener('click', (evt) => {
+  if (onDefaultButtonClick) {
+    onDefaultButtonClick.addEventListener('click', (evt) => {
       evt.preventDefault();
-      handleButtonClick('default', defaultBtn);
+      handleButtonClick('default', onDefaultButtonClick);
     });
   }
 
