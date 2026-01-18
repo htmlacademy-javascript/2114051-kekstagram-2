@@ -8,7 +8,7 @@ const showSuccess = () => {
   const message = document.querySelector('.success');
   const button = message.querySelector('.success__button');
 
-  const closeMessage = () => {
+  const onCloseMessageClick = () => {
     message.remove();
     document.removeEventListener('keydown', onDocumentKeydown);
     document.removeEventListener('click', onDocumentClick);
@@ -17,17 +17,17 @@ const showSuccess = () => {
   function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
       evt.stopPropagation();
-      closeMessage();
+      onCloseMessageClick();
     }
   }
 
   function onDocumentClick(evt) {
     if (evt.target === message) {
-      closeMessage();
+      onCloseMessageClick();
     }
   }
 
-  button.addEventListener('click', closeMessage);
+  button.addEventListener('click', onCloseMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
@@ -40,7 +40,7 @@ const showError = () => {
   const message = document.querySelector('.error');
   const button = message.querySelector('.error__button');
 
-  const closeMessage = () => {
+  const onCloseMessageClick = () => {
     message.remove();
     document.removeEventListener('keydown', onDocumentKeydown);
     document.removeEventListener('click', onDocumentClick);
@@ -49,17 +49,17 @@ const showError = () => {
   function onDocumentKeydown(evt) {
     if (isEscapeKey(evt)) {
       evt.stopPropagation();
-      closeMessage();
+      onCloseMessageClick();
     }
   }
 
   function onDocumentClick(evt) {
     if (evt.target === message) {
-      closeMessage();
+      onCloseMessageClick();
     }
   }
 
-  button.addEventListener('click', closeMessage);
+  button.addEventListener('click', onCloseMessageClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
